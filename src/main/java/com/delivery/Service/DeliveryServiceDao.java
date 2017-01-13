@@ -28,6 +28,43 @@ public class DeliveryServiceDao implements DeliveryInterface  {
 		deli.setPrice(rs.getInt(3));
 
 		return deli;
+		}
 	}
-}
+	
+	public deliveryEntity surchById(int id){
+		final String SQL = "SELECT * FROM menu WHERE id=?";
+		deliveryEntity deli = jdbc.queryForObject(SQL, new workingWithRowMap());
+		return deli;
+	}
+	
+	public void updateDelivery(deliveryEntity deli){
+		final String SQL = "UPDATE menu SET goods=?, price=? WHERE id=?";
+		final int id = deli.getId();
+		final String goods = deli.getGoods();
+		final int price = deli.getPrice();
+
+jdbc.update(SQL, new Object[] { goods, price, id });
+	}
+	
+	public Collection<deliveryEntity> infoDelivery(int page) {
+		page *= 3;
+		final String SQL = "SELECT * FROM menu LIMIT 3 offset ?";
+		List<deliveryEntity> deli = jdbc.query(SQL, new workingWithRowMap(), page);
+		return deli;
+	}
+	
+    public void removeDelivery(int id){
+    	final String SQL = "DELETE FROM menu WHERE id=?";
+    	jdbc.update(SQL,id);
+    }
+    
+    public void createDekivery(deliveryEntity deli){
+    	
+    	final String SQL = "INSERT INTO menu (goods, price) values (?, ?) ";
+		final String goods = deli.getGoods();
+		final int price = deli.getPrice();
+
+		jdbc.update(SQL, new Object[] { goods, price });
+    }
+    
 }
