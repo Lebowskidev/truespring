@@ -33,19 +33,19 @@ public class deliveryServiceDaoCheck implements deliveryInterfaceCheck  {
 	
 	public Collection<deliveryEntityCheck> infoDelivery(int page) {
 		page *= 3;
-		final String SQL = "SELECT * FROM check LIMIT 3 offset ?";
+		final String SQL = "SELECT * FROM Check LIMIT 3 offset ?";
 		List<deliveryEntityCheck> deli = jdbc.query(SQL, new workingWithRowMap(), page);
 		return deli;
 	}
 	
 	 public void removeDelivery(int id){
-	    	final String SQL = "DELETE FROM check WHERE id=?";
+	    	final String SQL = "DELETE FROM Check WHERE id=?";
 	    	jdbc.update(SQL,id);
 	    }
 	    
 	    public void createDekivery(deliveryEntityCheck deli){
 	    	
-	    	final String SQL = "INSERT INTO check (goods, count,price) values (?, ?, ?) ";
+	    	final String SQL = "INSERT INTO Check (goods, count,price) values (?, ?, ?) ";
 			final String goods = deli.getGoods();
 			final int count = deli.getCount();
 			final int price = deli.getPrice();
